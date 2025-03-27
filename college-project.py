@@ -67,7 +67,7 @@ class NmapScannerFrame(wx.Frame):
         
         self.InitUI()
         self.Centre()
-        # Remove self.Show() from here since we'll control it from the App class
+        self.Show()
     
     def InitUI(self):
         panel = wx.Panel(self)
@@ -458,23 +458,7 @@ class NmapScannerApp(wx.App):
     def OnInit(self):
         frame = NmapScannerFrame(None, "Professional NMAP Service Scanner")
         self.SetTopWindow(frame)
-        
-        # Initialize frame but don't show it yet
-        frame.Centre()
-        
-        # Show authentication dialog
-        root_dialog = RootAccessDialog(frame)
-        if root_dialog.ShowModal() == wx.ID_OK:
-            frame.is_root = True
-            frame.root_button.Disable()
-            frame.Show()
-            frame.statusbar.SetStatusText("Root Access Granted")
-            root_dialog.Destroy()
-            return True
-        else:
-            root_dialog.Destroy()
-            frame.Destroy()
-            return False
+        return True
 
 def main():
     app = NmapScannerApp()
